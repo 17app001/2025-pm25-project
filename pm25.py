@@ -1,5 +1,9 @@
 import pymysql
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 table_str = """
 create table if not exists pm25(
@@ -25,11 +29,11 @@ def open_db():
     global conn, cursor
     try:
         conn = pymysql.connect(
-            host="mysql-39175e7e-mdream-81ff.i.aivencloud.com",
-            user="avnadmin",
-            password="AVNS_VUfo1XoxZwEp-i2sOw8",
-            port=18633,
-            database="defaultdb",
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            port=int(os.getenv("DB_PORT")),
+            database=os.getenv("DB_NAME"),          
         )
 
         # print(conn)
